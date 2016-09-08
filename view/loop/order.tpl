@@ -14,17 +14,17 @@
     </div>
     <div class="collapse" id="order_collapse_{$key.id_cart}">
         <div class="panel-body">
-            {assign var='to_pay_htva' value=($key.amount_order - $key.amount_tax)}
-            {assign var='shipping_htva' value=(($key.shipping_price_order/121)*100)}
+            {assign var='to_pay_htva' value=($key.amount_order - $key.tax_amount)}
+            {#commande_number#} {$key.id_cart}<br />
             {#pn_profil_lastname#|ucfirst} : <strong>{$key.lastname_cart}</strong><br />
             {#pn_profil_firstname#|ucfirst} : <strong>{$key.firstname_cart}</strong><br />
             {#vat#} : <strong>{$key.amount_tva}%</strong> <br />
             {#to_pay_htva#|ucfirst} : <strong>{$to_pay_htva}</strong> €<br />
             {#tax_amount#|ucfirst} : <strong>{$key.amount_tax}</strong> €<br />
-            {if $shipping_htva != '0.00'}
-            {#shipping_cart_htva#|ucfirst} :<strong>{$shipping_htva|string_format:"%.2f"}</strong> €<br /> {* <strong>{$key.shipping_price_order}</strong> €<br />*}
-            {/if}
-            {#to_pay_ttc#|ucfirst} : <strong>{$key.amount_order}</strong> €</p>
+            {#shipping#|ucfirst} : <strong>{$key.shipping_htva}</strong> €<br />
+            {$total = $key.amount_order+$key.shipping_price_order}
+            {#payment_order#|ucfirst} : <strong>{#$key.payment_order#}</strong><br />
+            {#to_pay_ttc#|ucfirst} : <strong>{$total|number_format:2:'.':''}</strong> €</p>
         </div>
         <div class="panel-body">
         <table class="table table-hover table-condensed">
@@ -37,15 +37,15 @@
                 <tr>
                     <td colspan="3">
                         {assign var='total_price' value={$key1.CATALOG_LIST_QUANTITY}*{$key1.CATALOG_LIST_PRICE}}
-                        {assign var='price_hvat' value=($key1.CATALOG_LIST_PRICE - $key.amount_tax)}
-                        {assign var='total_price_hvat' value=($total_price - $key.amount_tax)}
+                        {assign var='price_hvat' value=($key1.CATALOG_LIST_PRICE / (1 + ($key.amount_tva / 100)))}
+                        {assign var='total_price_hvat' value=($total_price / (1 + ($key.amount_tva / 100)))}
                         <h4>{$key1.CATALOG_LIST_NAME}</h4>
                         <ul>
                             <li>{#quantity_cart#} : <strong>{$key1.CATALOG_LIST_QUANTITY}</strong></li>
                             <li>{#price_items#} : <strong>{$key1.CATALOG_LIST_PRICE}</strong> €</li>
-                            <li>{#price_htva_items#|ucfirst} : <strong>{$price_hvat}</strong> €</li>
+                            <li>{#price_htva_items#|ucfirst} : <strong>{$price_hvat|string_format:"%.2f"}</strong> €</li>
                             <li>{#vat#} : <strong>{$key.amount_tva}</strong> %</li>
-                            <li>{#to_pay_htva_items#|ucfirst} : <strong>{$total_price_hvat}</strong> €</li>
+                            <li>{#to_pay_htva_items#|ucfirst} : <strong>{$total_price_hvat|string_format:"%.2f"}</strong> €</li>
                             <li>{#to_pay#} : <strong>{$total_price|string_format:"%.2f"}</strong> €</li>
                         </ul>
                     </td>
@@ -136,4 +136,8 @@
     </div>
 </div>
 {/foreach}
+    {else}
+    <p class="alert alert-warning">
+        <span class="fa fa-info-circle"></span> {#not_order#}
+    </p>
 {/if}
