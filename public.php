@@ -704,12 +704,22 @@ class plugins_profil_public extends database_plugins_profil{
             $dataRecaptcha = $this->dataRecaptcha();
             if($dataRecaptcha['google_recaptcha'] == '1') {
                 if ($this->getRecaptcha() == true) {
-                    $this->setSignup($data);
+                    $vmail = parent::s_profil_by_mail($data['email_pr']);
+                    if($vmail['email_pr'] != null){
+                        $this->getNotify('signup_error');
+                    }else{
+                        $this->setSignup($data);
+                    }
                 } else {
                     $this->getNotify('signup_error');
                 }
             }else{
-                $this->setSignup($data);
+                $vmail = parent::s_profil_by_mail($data['email_pr']);
+                if($vmail['email_pr'] != null){
+                    $this->getNotify('signup_error');
+                }else{
+                    $this->setSignup($data);
+                }
             }
         }
     }
