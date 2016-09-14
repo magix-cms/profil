@@ -11,7 +11,7 @@ require('session.php');
 
 class plugins_profil_public extends database_plugins_profil{
     protected $template, $module, $activeMods;
-    
+
     //Les données du profil
     public $pstring1,$pnum1,$pstring2,$pnum2;
     public $login_redirect,
