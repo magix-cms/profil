@@ -117,6 +117,7 @@ var MC_profil = (function($, window, document, undefined){
                                 $.nicenotify.initbox(e,{
                                     display:false
                                 });
+                                $('#profil_'+e).remove();
                             }
                         });
                     },

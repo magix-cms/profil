@@ -775,6 +775,8 @@ class plugins_profil_public extends database_plugins_profil{
      */
     private function getBodyMail($debug = false){
         $this->mail = new magixglobal_model_mail('mail');
+        $fetchColor = new frontend_db_setting();
+        $this->template->assign('getDataCSSIColor',$fetchColor->fetchCSSIColor());
         if($debug){
             if(isset($this->pstring2)){
                 $data = parent::verifyProfilKeyuniqid($this->pstring2);
@@ -928,6 +930,8 @@ class plugins_profil_public extends database_plugins_profil{
      */
     private function getPasswordBodyMail($data, $debug){
         $this->mail = new magixglobal_model_mail('mail');
+        $fetchColor = new frontend_db_setting();
+        $this->template->assign('getDataCSSIColor',$fetchColor->fetchCSSIColor());
         if($debug){
             $this->template->assign('data', $data);
             $bodyMail = $this->template->fetch('mail/admin.tpl');

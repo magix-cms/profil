@@ -392,6 +392,7 @@ class plugins_profil_admin extends database_plugins_profil{
     private function remove(){
         if(isset($this->delete)){
             parent::d_profil($this->delete);
+			print $this->delete;
         }
     }
     /* ################# CONFIG ###################*/
