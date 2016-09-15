@@ -10,7 +10,7 @@ require_once('db/profil.php');
 require('session.php');
 
 class plugins_profil_public extends database_plugins_profil{
-    protected $template, $module, $activeMods;
+    protected $template, $module, $activeMods, $setting, $about;
 
     //Les données du profil
     public $pstring1,$pnum1,$pstring2,$pnum2;
@@ -52,6 +52,8 @@ class plugins_profil_public extends database_plugins_profil{
     public $period_sub,$amount_sub;
     public $gRecaptchaResponse;
     public function __construct(){
+        $this->setting = frontend_model_setting::select_uniq_setting('css_inliner');
+        $this->about = new plugins_about_public();
 		if(class_exists('plugins_profil_module')) {
 			$this->module = new plugins_profil_module();
 		}
@@ -758,9 +760,10 @@ class plugins_profil_public extends database_plugins_profil{
      */
     private function setSignupMail(){
         $this->template->configLoad();
+        $collection = $this->about->getData();
         //$title = $this->template->getConfigVars('titlemail_signup');
         $subject = $this->template->getConfigVars('subject_profil');
-        $website = $this->template->getConfigVars('website');
+        $website = $collection['name'];
         return sprintf($subject,$website);
     }
 
@@ -771,6 +774,7 @@ class plugins_profil_public extends database_plugins_profil{
      * @return string
      */
     private function getBodyMail($debug = false){
+        $this->mail = new magixglobal_model_mail('mail');
         if($debug){
             if(isset($this->pstring2)){
                 $data = parent::verifyProfilKeyuniqid($this->pstring2);
@@ -779,7 +783,16 @@ class plugins_profil_public extends database_plugins_profil{
             }else{
                 $this->template->assign('data',$this->getValidateData(true));
             }
-            $this->template->display('mail/admin.tpl');
+
+            $bodyMail = $this->template->fetch('mail/admin.tpl');
+
+            if ($this->setting['setting_value']) {
+
+                print $this->mail->plugin_css_inliner($bodyMail,array('/profil/css' => 'foundation-emails.css'));
+            } else {
+                print $bodyMail;
+            }
+
         }else{
             if(isset($this->pstring2)){
                 $data = parent::verifyProfilKeyuniqid($this->pstring2);
@@ -788,7 +801,15 @@ class plugins_profil_public extends database_plugins_profil{
             }else{
                 $this->template->assign('data',$this->getValidateData(false));
             }
-            return $this->template->fetch('mail/admin.tpl');
+
+            $bodyMail = $this->template->fetch('mail/admin.tpl');
+
+            if ($this->setting['setting_value']) {
+
+                return $this->mail->plugin_css_inliner($bodyMail,array('/profil/css' => 'foundation-emails.css'));
+            } else {
+                return $bodyMail;
+            }
         }
     }
 
@@ -799,6 +820,7 @@ class plugins_profil_public extends database_plugins_profil{
      */
     private function getSignupSendMail($debug = false){
         if(isset($this->email_pr)){
+            $collection = $this->about->getData();
             $this->template->configLoad();
             if(empty($this->lastname_pr)
                 OR empty($this->firstname_pr)
@@ -809,7 +831,7 @@ class plugins_profil_public extends database_plugins_profil{
                 //Initialisation du contenu du message
                 $message = $core_mail->body_mail(
                     self::setSignupMail(),
-                    array($this->template->getConfigVars('mail_admin')),
+                    array($collection['contact']['mail']),
                     array($this->email_pr),
                     self::getBodyMail(false),
                     false
@@ -828,9 +850,10 @@ class plugins_profil_public extends database_plugins_profil{
      */
     private function setValidateMail(){
         $this->template->configLoad();
+        $collection = $this->about->getData();
         //$title = $this->template->getConfigVars('titlemail_signup');
         $subject = $this->template->getConfigVars('activate_profil');
-        $website = $this->template->getConfigVars('website');
+        $website = $collection['name'];
         return sprintf($subject,$website);
     }
 
@@ -841,6 +864,7 @@ class plugins_profil_public extends database_plugins_profil{
      */
     private function getValidateSendMail($debug = false){
         $this->template->configLoad();
+        $collection = $this->about->getData();
         if($debug){
             $this->template->assign('setTitleMail',$this->setValidateMail());
             $this->getBodyMail(true);
@@ -853,7 +877,7 @@ class plugins_profil_public extends database_plugins_profil{
                 //Initialisation du contenu du message
                 $message = $core_mail->body_mail(
                     self::setValidateMail(),
-                    array($this->template->getConfigVars('mail_admin')),
+                    array($collection['contact']['mail']),
                     array($account['email']),
                     self::getBodyMail(false),
                     false
@@ -887,9 +911,10 @@ class plugins_profil_public extends database_plugins_profil{
      */
     private function setPasswordMail(){
         $this->template->configLoad();
+        $collection = $this->about->getData();
         $title = $this->template->getConfigVars('titlemail_password');
         $subject = $this->template->getConfigVars('renew_password');
-        $website = $this->template->getConfigVars('website');
+        $website = $collection['name'];
         return sprintf($title,$subject,$website);
     }
 
@@ -902,12 +927,25 @@ class plugins_profil_public extends database_plugins_profil{
      * @throws Exception
      */
     private function getPasswordBodyMail($data, $debug){
+        $this->mail = new magixglobal_model_mail('mail');
         if($debug){
             $this->template->assign('data', $data);
-            $this->template->display('mail/admin.tpl');
+            $bodyMail = $this->template->fetch('mail/admin.tpl');
+
+            if ($this->setting['setting_value']) {
+                print $this->mail->plugin_css_inliner($bodyMail,array('/profil/css' => 'foundation-emails.css'));
+            } else {
+                print $bodyMail;
+            }
         }else{
             $this->template->assign('data', $data);
-            return $this->template->fetch('mail/admin.tpl');
+            $bodyMail = $this->template->fetch('mail/admin.tpl');
+
+            if ($this->setting['setting_value']) {
+                return $this->mail->plugin_css_inliner($bodyMail,array('/profil/css' => 'foundation-emails.css'));
+            } else {
+                return $bodyMail;
+            }
         }
     }
 
@@ -916,6 +954,7 @@ class plugins_profil_public extends database_plugins_profil{
      * @param bool $debug
      */
     private function sendNewPassword($data,$debug){
+        $collection = $this->about->getData();
         $this->template->configLoad();
         if($debug){
             self::getPasswordBodyMail($data,true);
@@ -924,7 +963,7 @@ class plugins_profil_public extends database_plugins_profil{
             //Initialisation du contenu du message
             $message = $core_mail->body_mail(
                 self::setPasswordMail(),
-                array($this->template->getConfigVars('mail_admin')),
+                array($collection['contact']['mail']),
                 array($this->lo_email_pr),
                 self::getPasswordBodyMail($data,false),
                 false
@@ -938,7 +977,7 @@ class plugins_profil_public extends database_plugins_profil{
      */
     private function createNewPassword($debug = false){
         if($debug){
-            if(isset($this->lostpassword) && isset($_GET['testmail'])){
+            if(isset($_GET['testmail'])){
                 $profil = parent::s_profil_by_mail($_GET['testmail']);
                 if($profil!= null){
                     $cryptpass = magixglobal_model_cryptrsa::short_alphanumeric_id(8);
@@ -956,6 +995,7 @@ class plugins_profil_public extends database_plugins_profil{
                 }else{
                     $profil = parent::s_profil_by_mail($this->lo_email_pr);
                     if($profil!= null){
+
                         $cryptpass = magixglobal_model_cryptrsa::short_alphanumeric_id(8);
                         $data = array(
                             'password'  =>  $cryptpass,
@@ -963,6 +1003,7 @@ class plugins_profil_public extends database_plugins_profil{
                         );
 
                         $this->sendNewPassword($data,false);
+
                         parent::u_dataPassword(
                             $profil['idprofil'],
                             magixglobal_model_cryptrsa::hash_sha1($data['password'])
@@ -1099,7 +1140,11 @@ class plugins_profil_public extends database_plugins_profil{
                     }
                 }
             }elseif($this->pstring1 === 'lostpassword'){
-                $this->createNewPassword(false);
+                if(isset($_GET['testmail'])){
+                    $this->createNewPassword(true);
+                }else{
+                    $this->createNewPassword(false);
+                }
             }else{
                 $this->securePage();
                 $array_sess = array(

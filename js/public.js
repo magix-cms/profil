@@ -176,7 +176,7 @@ var MC_profil = (function($, window, document, undefined){
                 submitHandler: function(form) {
                     $.nicenotify({
                         ntype: "submit",
-                        uri: hashurl+'?lostpassword=true',
+                        uri: hashurl+'lostpassword/',
                         typesend: 'post',
                         idforms: $(form),
                         resetform: true,
