@@ -1,173 +1,135 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+{autoload_i18n}{widget_about_data}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{if $smarty.get.vactivate}{$smarty.config.activate_profil}{else}{$smarty.config.subject_profil}{/if}</title>
     {literal}
-        <style type="text/css">
-            /* Based on The MailChimp Reset INLINE: Yes. */
-            /* Client-specific Styles */
-            #outlook a {padding:0;} /* Force Outlook to provide a "view in browser" menu link. */
-            body{background:#FFFFFF; width:100% !important; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0;font: normal 400 14px/1.428 "Helvetica",Arial,sans-serif;}
-            /* Prevent Webkit and Windows Mobile platforms from changing default font sizes.*/
-            .ExternalClass {width:100%;} /* Force Hotmail to display emails at full width */
-            .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;}
-            /* Forces Hotmail to display normal line spacing.  More on that: http://www.emailonacid.com/forum/viewthread/43/ */
-            #backgroundTable {margin:0; padding:0; width:100% !important; line-height: 100% !important;}
-            /* End reset */
-
-            /* Some sensible defaults for images
-            Bring inline: Yes. */
-            img {outline:none; text-decoration:none; -ms-interpolation-mode: bicubic;}
-            a img {border:none;}
-            .image_fix {display:block;margin-left: 10px;}
-
-            /* Yahoo paragraph fix
-            Bring inline: Yes. */
-            p {margin: 1em 0;}
-
-            /* Hotmail header color reset
-            Bring inline: Yes. */
-            h1, h2, h3, h4, h5, h6 {color: black !important;}
-
-            h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {color: blue !important;}
-
-            h1 a:active, h2 a:active,  h3 a:active, h4 a:active, h5 a:active, h6 a:active {
-                color: red !important; /* Preferably not the same color as the normal header link color.  There is limited support for psuedo classes in email clients, this was added just for good measure. */
+        <style>
+            .header {
+                background: #f2f2f2;
             }
 
-            h1 a:visited, h2 a:visited,  h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited {
-                color: purple !important; /* Preferably not the same color as the normal header link color. There is limited support for psuedo classes in email clients, this was added just for good measure. */
+            .header .columns {
+                padding-bottom: 0;
             }
 
-            /* Outlook 07, 10 Padding issue fix
-            Bring inline: No.*/
-            table td {border-collapse: collapse;}
-
-            /* Remove spacing around Outlook 07, 10 tables
-            Bring inline: Yes */
-            table { border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; }
-
-            /* Styling your links has become much simpler with the new Yahoo.  In fact, it falls in line with the main credo of styling in email and make sure to bring your styles inline.  Your link colors will be uniform across clients when brought inline.
-            Bring inline: Yes. */
-            a {color: #428bca;}
-            li {margin: 5px 0;}
-            .btn {
-                display: inline-block;
+            .header p {
+                color: #fff;
                 margin-bottom: 0;
-                font-weight: normal;
-                text-align: center;
-                vertical-align: middle;
-                cursor: pointer;
-                background-image: none;
-                border: 1px solid transparent;
-                white-space: nowrap;
-                padding: 6px 12px;
-                font-size: 14px;
-                line-height: 1.428571429;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-            }
-            .btn-main-theme {
-                color: #ffffff;
-                background-color: #333;
-                border-color: #333;
-                text-decoration: none;
-                border-radius: 0;
-            }
-            .btn-main-theme:hover {
-                background-color: #1a1a1a;
-                border-color: #141414;
-            }
-            .help-text {
-                color: #959595;
-                font-size: 80%;
             }
 
-            /***************************************************
-            ****************************************************
-            MOBILE TARGETING
-            ****************************************************
-            ***************************************************/
-            @media only screen and (max-device-width: 480px) {
-                /* Part one of controlling phone number linking for mobile. */
-                a[href^="tel"], a[href^="sms"] {
-                    text-decoration: none;
-                    color: blue; /* or whatever your want */
-                    pointer-events: none;
-                    cursor: default;
-                }
-
-                .mobile_link a[href^="tel"], .mobile_link a[href^="sms"] {
-                    text-decoration: default;
-                    color: orange !important;
-                    pointer-events: auto;
-                    cursor: default;
-                }
-
+            .header .wrapper-inner {
+                padding: 0;
+                /*controls the height of the header*/
             }
 
-            /* More Specific Targeting */
-
-            @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-                /* You guessed it, ipad (tablets, smaller screens, etc) */
-                /* repeating for the ipad */
-                a[href^="tel"], a[href^="sms"] {
-                    text-decoration: none;
-                    color: blue; /* or whatever your want */
-                    pointer-events: none;
-                    cursor: default;
-                }
-
-                .mobile_link a[href^="tel"], .mobile_link a[href^="sms"] {
-                    text-decoration: default;
-                    color: orange !important;
-                    pointer-events: auto;
-                    cursor: default;
-                }
+            .header .container {
+                background: #f2f2f2;
             }
 
-            @media only screen and (-webkit-min-device-pixel-ratio: 2) {
-                /* Put your iPhone 4g styles in here */
+            .header .container td {
+                padding: 15px;
             }
 
-            /* Android targeting */
-            @media only screen and (-webkit-device-pixel-ratio:.75){
-                /* Put CSS for low density (ldpi) Android layouts in here */
+            .spacer.spacer-hr td{
+                border-top: 1px solid #eeeeee;
             }
-            @media only screen and (-webkit-device-pixel-ratio:1){
-                /* Put CSS for medium density (mdpi) Android layouts in here */
+            .footer{
+                background: #333333;
             }
-            @media only screen and (-webkit-device-pixel-ratio:1.5){
-                /* Put CSS for high density (hdpi) Android layouts in here */
+            .footer p{
+                color: #fff;
+                margin-bottom: 0;
             }
-            /* end Android targeting */
-
+            .footer ul{
+                list-style: none;
+            }
+            .footer ul li{
+                color: #fff;
+            }
+            .footer .container {
+                background: #333333;
+            }
+            .footer .container td{
+                padding: 15px;
+            }
         </style>
     {/literal}
-    <!-- Targeting Windows Mobile -->
-    <!--[if IEMobile 7]>
-    <style type="text/css">
-
-    </style>
-    <![endif]-->
-
-    <!-- ***********************************************
-    ****************************************************
-    END MOBILE TARGETING
-    ****************************************************
-    ************************************************ -->
-
-    <!--[if gte mso 9]>
-    <style>
-        /* Target Outlook 2007 and 2010 */
-    </style>
-    <![endif]-->
 </head>
 <body>
-{block name='body:content'}{/block}
+<!-- <style> -->
+<table class="body" data-made-with-foundation>
+    <tr>
+        <td class="float-center" align="center" valign="top">
+            <center data-parsed>
+                <table align="center" class="container header float-center">
+                    <tr>
+                        <td class="wrapper-inner">
+                            <table align="center" class="container">
+                                <tbody>
+                                <tr>
+                                    <td valign="middle">
+                                        <!-- Gmail/Hotmail image display fix -->
+                                        <a href="{geturl}" target ="_blank" title="{$companyData.name}" style="text-decoration: none;font-size: 46px;">
+                                            <img src="{geturl}/skin/{template}/img/logo/{#logo_img_mail#}" alt="{#logo_img_alt#|ucfirst}" width="270" height="88"/>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                {block name='body:content'}{/block}
+                <table  align="center" class="container footer">
+                    <tr>
+                        <td class="wrapper-inner">
+                            <table  align="center" class="container">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <ul>
+                                            <li>
+                                                {$companyData.name}
+                                            </li>
+                                            <li>
+                                                {$companyData.contact.adress.street},<br/>
+                                                {$companyData.contact.adress.postcode} {$companyData.contact.adress.city}
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            <li>
+                                                {$companyData.contact.mail}
+                                            </li>
+                                            {if $companyData.contact.phone}
+                                                <li>
+                                                    {$companyData.contact.phone}
+                                                </li>
+                                            {/if}
+                                            {if $companyData.contact.mobile}
+                                                <li>
+                                                    {$companyData.contact.mobile}
+                                                </li>
+                                            {/if}
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>{$smarty.config.footer_mail_line1|sprintf:{#website_name#}:$companyData.tva}</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </center>
+        </td>
+    </tr>
+</table>
 </body>
 </html>
