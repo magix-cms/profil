@@ -16,7 +16,7 @@
         </tr>
         {*<pre>{$getCartData|print_r}</pre>*}
     {foreach $getProfilData as $key => $value nocache}
-        <tr>
+        <tr id="profil_{$value.id}">
             <td>{$value.email}</td>
             <td>{$value.lastname}</td>
             <td>{$value.firstname}</td>
