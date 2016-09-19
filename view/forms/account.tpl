@@ -54,6 +54,18 @@
         <input id="postcode_pr" type="text" name="postcode_pr" value="{$data.postcode}" class="form-control" />
     </div>
     <div class="form-group">
+        <label for="company_pr">
+            {#pn_profil_company#|ucfirst} :
+        </label>
+        <input id="company_pr" type="text" name="company_pr" value="{$data.company}" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="vat_pr">
+            {#pn_profil_vat#|ucfirst} :
+        </label>
+        <input id="vat_pr" type="text" name="vat_pr" value="{$data.vat}" class="form-control" />
+    </div>
+    <div class="form-group">
         <input type="submit" class="btn btn-box btn-flat btn-main-theme" value="{#pn_profil_save#|ucfirst}" />
     </div>
     <div class="clearfix mc-message"></div>

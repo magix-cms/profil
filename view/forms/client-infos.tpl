@@ -67,7 +67,7 @@
         </div>
     </fieldset>
     <fieldset>
-        <legend class="h3">Informations complémentaires</legend>
+        <legend class="h3">{#more_information#}</legend>
         <div class="form-group">
             <label class="name block" for="message_cart">{#pn_cartpay_more_explain#|ucfirst} :</label>
             <textarea id="message_cart" name="message_cart" class="form-control" rows="6" cols="36"></textarea>

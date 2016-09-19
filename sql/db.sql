@@ -12,6 +12,8 @@ CREATE TABLE IF NOT EXISTS `mc_plugins_profil` (
   `city_pr` varchar(60) DEFAULT NULL,
   `postcode_pr` varchar(10) DEFAULT NULL,
   `phone_pr` varchar(45) DEFAULT NULL,
+  `company_pr` varchar(50) DEFAULT NULL,
+  `vat_pr` varchar(50) DEFAULT NULL,
   `website` varchar(150) DEFAULT NULL,
   `facebook` varchar(200) DEFAULT NULL,
   `twitter` varchar(150) DEFAULT NULL,

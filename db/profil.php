@@ -508,7 +508,9 @@ class database_plugins_profil
         			street_pr = :street_pr,
         			city_pr = :city_pr,
         			postcode_pr = :postcode_pr,
-        			phone_pr = :phone_pr
+        			phone_pr = :phone_pr,
+        			vat_pr=:vat_pr,
+        			company_pr=:company_pr
 				WHERE idprofil = :idprofil';
 
 		magixglobal_model_db::layerDB()->update($sql,
@@ -520,7 +522,9 @@ class database_plugins_profil
 				':street_pr'        => $data['street_pr'],
 				':city_pr'          => $data['city_pr'],
 				':postcode_pr'      => $data['postcode_pr'],
-				':phone_pr'         => $data['phone_pr']
+				':phone_pr'         => $data['phone_pr'],
+                ':vat_pr'           => $data['vat_pr'],
+                ':company_pr'       => $data['company_pr']
 			)
 		);
 	}

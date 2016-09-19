@@ -26,8 +26,8 @@ class plugins_profil_public extends database_plugins_profil{
         $street_pr,
         $city_pr,
         $postcode_pr,
-        $tva_pr,
-        $society_pr,
+        $vat_pr,
+        $company_pr,
         $cond_gen,
         $singup_newsletter,
         $cryptkeypass_pr,
@@ -81,11 +81,11 @@ class plugins_profil_public extends database_plugins_profil{
         if(magixcjquery_filter_request::isPost('postcode_pr')){
             $this->postcode_pr = magixcjquery_form_helpersforms::inputClean($_POST['postcode_pr']);
         }
-        if(magixcjquery_filter_request::isPost('tva_pr')){
-            $this->tva_pr = magixcjquery_form_helpersforms::inputClean($_POST['tva_pr']);
+        if(magixcjquery_filter_request::isPost('vat_pr')){
+            $this->vat_pr = magixcjquery_form_helpersforms::inputClean($_POST['vat_pr']);
         }
-        if(magixcjquery_filter_request::isPost('society_pr')){
-            $this->society_pr = magixcjquery_form_helpersforms::inputClean($_POST['society_pr']);
+        if(magixcjquery_filter_request::isPost('company_pr')){
+            $this->company_pr = magixcjquery_form_helpersforms::inputClean($_POST['company_pr']);
         }
         if(magixcjquery_filter_request::isPost('cond_gen')){
             $this->cond_gen = magixcjquery_form_helpersforms::inputClean($_POST['cond_gen']);
@@ -583,8 +583,8 @@ class plugins_profil_public extends database_plugins_profil{
             $data['city_pr']       =   null;
             $data['postcode_pr']   =   null;
             $data['country_pr']    =   null;
-            $data['tva_pr']        =   null;
-            $data['society_pr']    =   null;
+            $data['vat_pr']        =   null;
+            $data['company_pr']    =   null;
             $data['cryptkeypass_pr'] = "test";
             $data['keyuniqid_pr'] = $this->keyuniqid_pr;
             $data['cond_gen']      = "on";
@@ -602,8 +602,8 @@ class plugins_profil_public extends database_plugins_profil{
             $data['city_pr']       =   isset($this->city_pr) ? $this->city_pr : null;
             $data['postcode_pr']   =   isset($this->postcode_pr) ? $this->postcode_pr : null;
             $data['country_pr']    =   isset($this->country_pr) ? $this->country_pr : null;
-            $data['tva_pr']        =   isset($this->tva_pr) ? $this->tva_pr : null;
-            $data['society_pr']    =   isset($this->society_pr) ? $this->society_pr : null;
+            $data['vat_pr']        =   isset($this->vat_pr) ? $this->vat_pr : null;
+            $data['company_pr']    =   isset($this->company_pr) ? $this->company_pr : null;
             $data['cond_gen']      =   isset($this->cond_gen) ? $this->cond_gen : null;
             $data['links']['website']       =   isset($this->website_pr) ? $this->website_pr : null;
             $data['links']['facebook']      =   isset($this->facebook_pr) ? $this->facebook_pr : null;
@@ -1040,8 +1040,8 @@ class plugins_profil_public extends database_plugins_profil{
             'city'          =>  $data['city_pr'],
             'postcode'      =>  $data['postcode_pr'],
             'phone'         =>  $data['phone_pr'],
-            'tva'           =>  $data['tva_pr'],
-            'society'       =>  $data['society_pr'],
+            'vat'           =>  $data['vat_pr'],
+            'company'       =>  $data['company_pr'],
             'website' => $data['website'],
             'facebook' => $data['facebook'],
             'twitter' => $data['twitter'],
