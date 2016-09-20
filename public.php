@@ -10,7 +10,7 @@ require_once('db/profil.php');
 require('session.php');
 
 class plugins_profil_public extends database_plugins_profil{
-    protected $template, $module, $activeMods, $setting, $about;
+    protected $template, $module, $activeMods, $setting, $about, $mail;
 
     //Les données du profil
     public $pstring1,$pnum1,$pstring2,$pnum2;
@@ -54,6 +54,7 @@ class plugins_profil_public extends database_plugins_profil{
     public function __construct(){
         $this->setting = frontend_model_setting::select_uniq_setting('css_inliner');
         $this->about = new plugins_about_public();
+        $this->mail = new magixglobal_model_mail('mail');
 		if(class_exists('plugins_profil_module')) {
 			$this->module = new plugins_profil_module();
 		}
@@ -774,7 +775,6 @@ class plugins_profil_public extends database_plugins_profil{
      * @return string
      */
     private function getBodyMail($debug = false){
-        $this->mail = new magixglobal_model_mail('mail');
         $fetchColor = new frontend_db_setting();
         $this->template->assign('getDataCSSIColor',$fetchColor->fetchCSSIColor());
         if($debug){
@@ -929,7 +929,6 @@ class plugins_profil_public extends database_plugins_profil{
      * @throws Exception
      */
     private function getPasswordBodyMail($data, $debug){
-        $this->mail = new magixglobal_model_mail('mail');
         $fetchColor = new frontend_db_setting();
         $this->template->assign('getDataCSSIColor',$fetchColor->fetchCSSIColor());
         if($debug){
