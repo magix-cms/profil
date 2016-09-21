@@ -134,8 +134,8 @@
                                 <tr>
                                     <td>
                                         <ul>
-                                            <li>{#pn_profil_firstname#|ucfirst} : {$data.lastname_pr}</li>
-                                            <li>{#pn_profil_lastname#|ucfirst} : {$data.firstname_pr}</li>
+                                            <li>{#pn_profil_firstname#|ucfirst} : {$data.firstname_pr}</li>
+                                            <li>{#pn_profil_lastname#|ucfirst} : {$data.lastname_pr}</li>
                                             <li>{#pn_profil_mail#|ucfirst} : {$data.email_pr}</li>
                                         </ul>
                                     </td>
