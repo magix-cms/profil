@@ -7,7 +7,7 @@ var MC_profil = (function($, window, document, undefined){
      */
     function save(iso,type,id,hashurl,edit){
         if(type === 'signup'){
-            if($('#hiddenRecaptcha').val().length != 0){
+            if($('#hiddenRecaptcha').length != 0){
                 // *** Set required fields for validation
                 var rules = {
                     cond_gen: {
