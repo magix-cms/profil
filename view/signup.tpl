@@ -72,6 +72,7 @@
                                 </div>
                                 {if $googleRecaptcha.google_recaptcha eq '1'}
                                 <div class="g-recaptcha" data-sitekey="{$googleRecaptcha.recaptchaApiKey}"></div>
+                                <input type="hidden" class="hiddenRecaptcha required" name="hiddenRecaptcha" id="hiddenRecaptcha">
                                 <script type="text/javascript"
                                         src="https://www.google.com/recaptcha/api.js?hl={getlang}">
                                 </script>

@@ -7,36 +7,78 @@ var MC_profil = (function($, window, document, undefined){
      */
     function save(iso,type,id,hashurl,edit){
         if(type === 'signup'){
-            // *** Set required fields for validation
-            var rules = {
-                cond_gen: {
-                    required: true
-                },
-                lastname_pr: {
-                    required: true,
-                    minlength: 2
-                },
-                firstname_pr: {
-                    required: true,
-                    minlength: 2
-                },
-                email_pr: {
-                    required: true,
-                    email: true,
-                    remote: {
-                        url: '/'+iso+'/profil/signup/',
-                        type: "get"
+            if($('#hiddenRecaptcha').val().length != 0){
+                // *** Set required fields for validation
+                var rules = {
+                    cond_gen: {
+                        required: true
+                    },
+                    lastname_pr: {
+                        required: true,
+                        minlength: 2
+                    },
+                    firstname_pr: {
+                        required: true,
+                        minlength: 2
+                    },
+                    email_pr: {
+                        required: true,
+                        email: true,
+                        remote: {
+                            url: '/'+iso+'/profil/signup/',
+                            type: "get"
+                        }
+                    },
+                    cryptkeypass_pr: {
+                        required: true,
+                        minlength: 2
+                    },
+                    cryptkeypass_confirm: {
+                        required: true,
+                        equalTo: "#cryptkeypass_pr"
+                    },
+                    "hiddenRecaptcha": {
+                        required: function() {
+                            if(grecaptcha.getResponse() == '') {
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
                     }
-                },
-                cryptkeypass_pr: {
-                    required: true,
-                    minlength: 2
-                },
-                cryptkeypass_confirm: {
-                    required: true,
-                    equalTo: "#cryptkeypass_pr"
-                }
-            };
+                };
+            }else{
+                // *** Set required fields for validation
+                var rules = {
+                    cond_gen: {
+                        required: true
+                    },
+                    lastname_pr: {
+                        required: true,
+                        minlength: 2
+                    },
+                    firstname_pr: {
+                        required: true,
+                        minlength: 2
+                    },
+                    email_pr: {
+                        required: true,
+                        email: true,
+                        remote: {
+                            url: '/'+iso+'/profil/signup/',
+                            type: "get"
+                        }
+                    },
+                    cryptkeypass_pr: {
+                        required: true,
+                        minlength: 2
+                    },
+                    cryptkeypass_confirm: {
+                        required: true,
+                        equalTo: "#cryptkeypass_pr"
+                    }
+                };
+            }
 
             if(edit)
                 rules['pseudo_pr'] = { required: true, remote: { url: '/'+iso+'/profil/signup/', type: "get" } };
@@ -44,6 +86,7 @@ var MC_profil = (function($, window, document, undefined){
             $(id).validate({
                 onsubmit: true,
                 event: 'submit',
+                ignore: ".ignore",
                 rules: rules,
                 submitHandler: function(form) {
                     $.nicenotify({
