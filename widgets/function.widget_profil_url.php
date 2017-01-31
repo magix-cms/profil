@@ -19,29 +19,15 @@
 #
 # -- END LICENSE BLOCK -----------------------------------
 /**
- * MAGIX CMS
- * @category   extends 
- * @package    Smarty
- * @subpackage function
- * @copyright  MAGIX CMS Copyright (c) 2010 Gerits Aurelien, 
- * http://www.magix-cms.com,  http://www.magix-cjquery.com
- * @license    Dual licensed under the MIT or GPL Version 3 licenses.
- * @version    plugin version
- * @author Gérits Aurélien <aurelien@magix-cms.com> <aurelien@magix-dev.be>
- *
- */
-/**
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
  */
 /**
- * Smarty {widget_member_url} function plugin
+ * Smarty {widget_profil_url} function plugin
  *
  * Type:     function
- * Name:     widget_cart_session
- * Date:     21 september 2012
- * Update:   06 january 2014
+ * Name:     widget_profil_url
  * Purpose:
  * USAGE:
     {widget_profil_url}
