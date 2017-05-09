@@ -33,7 +33,7 @@
         <label for="country_pr">
             {#pn_profil_country#|ucfirst}* :
         </label>
-        {include file="section/brick/country.tpl" data=$data}
+        {include file="section/brick/country.tpl" data=['class'=>'form-control','id'=>'country_pr','name'=>'country_pr']}
     </div>
     <div class="form-group">
         <label for="street_pr">

@@ -91,6 +91,11 @@
 {/block}
 
 {block name="foot" append}
+    {script src="/min/?g=form" concat=$concat type="javascript"}
+    {capture name="formjs"}{strip}
+        /min/?f=skin/{template}/js/form.min.js
+    {/strip}{/capture}
+    {script src=$smarty.capture.formjs concat=$concat type="javascript" load='async'}
     {script src="/min/?f=libjs/vendor/localization/messages_{getlang}.js,plugins/profil/js/public.js" concat=$concat type="javascript"}
     <script type="text/javascript">
         $.nicenotify.notifier = {

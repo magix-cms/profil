@@ -16,14 +16,19 @@
 {/block}
 
 {block name="foot" append}
-    <script type="text/javascript">
-        $(function(){
-            if (typeof MC_profil == "undefined")
-            {
-                console.log("MC_profil is not defined");
-            }else{
-                MC_profil.runPrivate(iso,hashurl);
-            }
-        });
-    </script>
+{script src="/min/?g=form" concat=$concat type="javascript"}
+{capture name="formjs"}{strip}
+    /min/?f=skin/{template}/js/form.min.js
+{/strip}{/capture}
+{script src=$smarty.capture.formjs concat=$concat type="javascript" load='async'}
+<script type="text/javascript">
+    $(function(){
+        if (typeof MC_profil == "undefined")
+        {
+            console.log("MC_profil is not defined");
+        }else{
+            MC_profil.runPrivate(iso,hashurl);
+        }
+    });
+</script>
 {/block}
